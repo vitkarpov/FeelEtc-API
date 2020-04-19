@@ -41,7 +41,7 @@ module.exports.addUser = (event, context, callback) => {
 module.exports.getUsers = (event, context, callback) => {
   return db
     .scan({
-      TableName: useresTable
+      TableName: usersTable
     })
     .promise()
     .then(res => {
