@@ -89,7 +89,7 @@ module.exports.updateUser = (event, context, callback) => {
     Key: {
       id: id
     },
-    TableName: postsTable,
+    TableName: usersTable,
     ConditionExpression: "attribute_exists(id)",
     UpdateExpression: "SET name = :name, age = :age, sex = :sex",
     ExpressionAttributeValues: {
