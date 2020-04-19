@@ -24,9 +24,9 @@ module.exports.addUser = (event, context, callback) => {
   const record = {
     id: uuid(),
     createdAt: new Date().toISOString(),
-    name,
-    age,
-    sex
+    user_name: name,
+    user_age: age,
+    user_sex: sex
   };
 
   return db
@@ -94,7 +94,7 @@ module.exports.updateUser = (event, context, callback) => {
     },
     TableName: usersTable,
     ConditionExpression: "attribute_exists(id)",
-    UpdateExpression: "SET name = :name, age = :age, sex = :sex",
+    UpdateExpression: "SET user_name = :name, user_age = :age, user_sex = :sex",
     ExpressionAttributeValues: {
       ":name": name,
       ":age": age,
