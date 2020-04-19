@@ -45,7 +45,7 @@ module.exports.getUsers = (event, context, callback) => {
 		})
 		.promise()
 		.then(res => {
-			callback(null, response(200, res.Items.sort(sortByDate)));
+			callback(null, response(200, (res.Items || []).sort(sortByDate)));
 		})
 		.catch(err => callback(null, response(err.statusCode, err)));
 };
