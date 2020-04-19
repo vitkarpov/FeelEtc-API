@@ -1,0 +1,70 @@
+service: feeletc-api
+
+custom:
+    settings:
+        USERS_TABLE: users
+
+provider:
+    name: aws
+    runtime: nodejs8.10
+    region: eu-west-2
+    environment: ${self:custom.settings}
+    iamRoleStatements:
+        - Effect: "Allow"
+          Action:
+              - dynamodb:DescribeTable
+              - dynamodb:Scan
+              - dynamodb:GetItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+          Resource:
+              - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.USERS_TABLE}"
+
+functions:
+    addUser:
+        handler: handler.addUser
+        events:
+            - http:
+                  path: /users
+                  method: post
+    getUsers:
+        handler: handler.getUsers
+        events:
+            - http:
+                  path: /users
+                  method: get
+    getUser:
+        handler: handler.getUser
+        events:
+            - http:
+                  path: /users/{number}
+                  method: get
+    updateUser:
+        handler: handler.updateUser
+        events:
+            - http:
+                  path: /users/{id}
+                  method: patch
+    deleteUser:
+        handler: handler.deleteUser
+        events:
+            - http:
+                  path: /users/{id}
+                  method: delete
+
+resources:
+    Resources:
+        UsersTable:
+            Type: AWS::DynamoDB::Table
+            Properties:
+                AttributeDefinitions:
+                    - AttributeName: "id"
+                      AttributeType: "S"
+                KeySchema:
+                    - AttributeName: "id"
+                      KeyType: "HASH"
+                ProvisionedThroughput:
+                    ReadCapacityUnits: 1
+                    WriteCapacityUnits: 1
+                TableName: ${self:custom.settings.USERS_TABLE}
