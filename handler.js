@@ -17,6 +17,9 @@ module.exports.addUser = (event, context, callback) => {
       })
     );
   }
+  if (!validSex(sex)) {
+    return callback(400, { error: "Sex must be either M or F" });
+  }
 
   const record = {
     id: uuid(),
@@ -132,4 +135,8 @@ function response(statusCode, message) {
     statusCode: statusCode,
     body: JSON.stringify(message)
   };
+}
+
+function validSex(sex) {
+  return ["F", "M"].contains(sex);
 }
