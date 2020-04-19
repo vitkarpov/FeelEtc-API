@@ -82,7 +82,10 @@ module.exports.updateUser = (event, context, callback) => {
   const { name, age, sex } = reqBody;
 
   if (!validSex(sex)) {
-    return callback(400, { error: "Sex must be either M or F" });
+    return callback(
+      null,
+      response(400, { error: "Sex must be either M or F" })
+    );
   }
 
   const params = {
@@ -130,10 +133,10 @@ function sortByDate(a, b) {
   return a.createdAt - b.createdAt;
 }
 
-function response(statusCode, message) {
+function response(statusCode, response) {
   return {
     statusCode: statusCode,
-    body: JSON.stringify(message)
+    body: JSON.stringify(response)
   };
 }
 
