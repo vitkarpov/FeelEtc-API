@@ -138,5 +138,5 @@ function response(statusCode, message) {
 }
 
 function validSex(sex) {
-  return ["F", "M"].contains(sex);
+  return ["F", "M"].includes(sex);
 }
