@@ -38,7 +38,7 @@ functions:
         handler: handler.getUser
         events:
             - http:
-                  path: /users/{number}
+                  path: /users/{id}
                   method: get
     updateUser:
         handler: handler.updateUser
