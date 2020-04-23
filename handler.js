@@ -136,6 +136,9 @@ function sortByDate(a, b) {
 function response(statusCode, response) {
   return {
     statusCode: statusCode,
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    },
     body: JSON.stringify(response)
   };
 }
