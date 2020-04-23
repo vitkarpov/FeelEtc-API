@@ -38,7 +38,7 @@ module.exports.addUser = (event, context, callback) => {
     .then(() => {
       callback(null, response(201, record));
     })
-    .catch(err => response(null, response(err.statusCode, err)));
+    .catch(err => callback(null, response(err.statusCode, err)));
 };
 
 module.exports.getUsers = (event, context, callback) => {
